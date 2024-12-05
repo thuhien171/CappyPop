@@ -1,0 +1,21 @@
+@model DOTNETMVC.Models.Tables.User
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@{
+    ViewData["Title"] = "Delete Account";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div>
+    <p>Are you sure you want to delete your account?</p>
+    <form asp-action="DeleteUser" method="post">
+        <input type="hidden" asp-for="Id" />
+
+        <button type="submit" class="btn btn-danger">Delete Account</button>
+        <a href="@Url.Action("Profile", "User", new { id = Model.Id })" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>

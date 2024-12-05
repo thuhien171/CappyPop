@@ -1,0 +1,41 @@
+@model DOTNETMVC.Controllers.CreateCategoriesViewModel
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!-- Page Heading -->
+<h1 class="h3 mb-2 text-gray-800">Create New Category</h1>
+<p class="mb-4">Add a new category to the database.</p>
+<!-- End Page Heading -->
+
+<!-- Form Example -->
+<form action="/admin/savenewcategory" method="post">
+    <!-- Fields -->
+    <div class="form-group">
+        <label for="nameInput">Category Name</label>
+        <input type="text" class="form-control" id="nameInput" name="Name" placeholder="Enter the new category name">
+    </div>
+
+    <div class="form-group">
+        <label for="descriptionInput">Description</label>
+        <input type="text" class="form-control" id="descriptionInput" name="Description" placeholder="Enter a description">
+    </div>
+
+    <br>
+
+    <!-- Buttons -->
+    <a href="/admin/categories" class="btn btn-secondary btn-icon-split btn-md">
+        <span class="icon text-white-50">
+            <i class="fas fa-arrow-left"></i>
+        </span>
+        <span class="text">Back</span>
+    </a>
+
+    <button type="submit" class="btn btn-primary btn-icon-split btn-md">
+        <span class="icon text-white-50">
+            <i class="fas fa-plus"></i>
+        </span>
+        <span class="text">Create Category</span>
+    </button>
+</form>

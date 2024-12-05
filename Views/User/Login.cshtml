@@ -1,0 +1,47 @@
+@model DOTNETMVC.Controllers.LoginViewModel
+
+@{
+    Layout = null;  // Removing the layout to match the standalone HTML style.
+    ViewData["Title"] = "CappyPop Login";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/user/css/style.css"> <!-- Adjust the path to your CSS file -->
+</head>
+<body>
+    <div class="wrapper">
+        <form method="post" action="@Url.Action("Login", "User")">
+            <img src="~/user/img/logo.png" alt="logo" width="600" height="170">
+            <h2>Feast with us</h2>
+            <h2>Enjoy life with us</h2>
+
+            <div class="input-field">
+                <input type="email" id="Email" name="Email" class="form-control" value="@Model.Email" placeholder="Email Address" required>
+            </div>
+
+            <div class="input-field">
+                <input type="password" id="Password" name="Password" class="form-control" placeholder="Password" required>
+            </div>
+
+            <div class="forget">
+                <label for="remember">
+                    <input type="checkbox" id="RememberMe" name="RememberMe" />
+                    <p>Remember me</p>
+                </label>
+                <a href="#">Forgot password?</a>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-user btn-block">Log In</button>
+
+            <div class="register">
+                <p>Don't have an account? <a asp-action="Register" asp-controller="User">Create one!</a></p>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

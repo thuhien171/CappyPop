@@ -1,0 +1,44 @@
+@model DOTNETMVC.Controllers.UpdateCategoriesViewModel
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!-- Page Heading -->
+<h1 class="h3 mb-2 text-gray-800">Update Category</h1>
+<p class="mb-4">Update category information in the database</p>
+<!-- End Page Heading -->
+
+<form action="/admin/saveupdatecategory" method="post">
+    <!-- Fields -->
+    <div class="form-group">
+        <input name="id" type="hidden" class="form-control" id="IDInput" value="@Model.Category?.Id ?? 0">
+    </div>
+
+    <div class="form-group">
+        <label for="nameInput">Category Name</label>
+        <input name="name" type="text" class="form-control" id="nameInput" placeholder="Enter the category name" value="@Model.Category?.Name ?? """>
+    </div>
+
+    <div class="form-group">
+        <label for="descriptionInput">Description</label>
+        <input name="description" type="text" class="form-control" id="descriptionInput" placeholder="Enter a description" value="@Model.Category?.Description ?? """>
+    </div>
+
+    <br>
+
+    <!-- Buttons -->
+    <a href="/admin/categories" class="btn btn-secondary btn-icon-split btn-md">
+        <span class="icon text-white-50">
+            <i class="fas fa-arrow-left"></i>
+        </span>
+        <span class="text">Back</span>
+    </a>
+
+    <button type="submit" class="btn btn-primary btn-icon-split btn-md">
+        <span class="icon text-white-50">
+            <i class="fas fa-plus"></i>
+        </span>
+        <span class="text">Update Category</span>
+    </button>
+</form>

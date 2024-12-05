@@ -1,0 +1,82 @@
+@model DOTNETMVC.Models.Tables.User
+
+@{
+    Layout = null;  // Removing the layout to match the standalone HTML style.
+    ViewData["Title"] = "User Profile";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/user/css/style.css"> <!-- Adjust the path to your CSS file -->
+</head>
+<body>
+    <div class="wrapper">
+        <img src="~/user/img/logo.png" alt="logo" width="600" height="170" class="logo">
+        <h2 class="text-center">User Profile</h2>
+        <p class="text-center mb-4">View and manage your profile details.</p>
+
+        <!-- Profile Card -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3 text-center bg-primary text-white">
+                <h6 class="m-0 font-weight-bold">Profile Information</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" width="100%" cellspacing="0">
+                        <tbody>
+                            <tr>
+                                <th>Full Name</th>
+                                <td>@Model.FullName</td>
+                            </tr>
+                            <tr>
+                                <th>Email</th>
+                                <td>@Model.Email</td>
+                            </tr>
+                            <tr>
+                                <th>Username</th>
+                                <td>@Model.Username</td>
+                            </tr>
+                            <tr>
+                                <th>Phone Number</th>
+                                <td>@Model.PhoneNumber</td>
+                            </tr>
+                            <tr>
+                                <th>Account Created</th>
+                                <td>@Model.CreatedAt?.ToString("yyyy-MM-dd")</td>
+                            </tr>
+                            <tr>
+                                <th>Last Updated</th>
+                                <td>@Model.UpdatedAt?.ToString("yyyy-MM-dd")</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card-footer text-center">
+                <a href="@Url.Action("EditUser", "User", new { id = Model.Id })" class="btn btn-info btn-icon-split">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-edit"></i>
+                    </span>
+                    <span class="text">Edit Profile</span>
+                </a>
+                
+                <!-- Delete Account Button -->
+                <form asp-action="DeleteUser" asp-controller="User" method="post" style="display:inline;">
+                    <input type="hidden" name="id" value="@Model.Id" />
+                    <button type="submit" class="btn btn-danger btn-icon-split">
+                        <span class="icon text-white-50">
+                            <i class="fas fa-trash"></i>
+                        </span>
+                        <span class="text">Delete Account</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
