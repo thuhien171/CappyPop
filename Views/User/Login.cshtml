@@ -20,6 +20,16 @@
             <h2>Feast with us</h2>
             <h2>Enjoy life with us</h2>
 
+            @if (!ViewData.ModelState.IsValid)
+            {
+                <div class="error-messages" style="color: red; margin-bottom: 15px;">
+                    @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                    {
+                        <p>@error.ErrorMessage</p>
+                    }
+                </div>
+            }
+
             <div class="input-field">
                 <input type="email" id="Email" name="Email" class="form-control" value="@Model.Email" placeholder="Email Address" required>
             </div>

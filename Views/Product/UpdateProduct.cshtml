@@ -1,0 +1,49 @@
+@model DOTNETMVC.Controllers.UpdateProductViewModel
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!-- Page Heading -->
+<h1 class="h3 mb-2 text-gray-800">Update Product</h1>
+<p class="mb-4">Update product information in the database</p>
+<!-- End Page Heading -->
+
+<form action="/admin/saveUpdateProduct" method="post">
+    <!-- Fields -->
+    <div class="form-group">
+        <input name="id" type="hidden" class="form-control" id="IDInput" value="@Model.Product?.ProductId ?? 0">
+    </div>
+
+    <div class="form-group">
+        <label for="nameInput">Product Name</label>
+        <input name="name" type="text" class="form-control" id="nameInput" placeholder="Enter the product name" value="@Model.Product?.Name ?? """>
+    </div>
+
+    <div class="form-group">
+        <label for="priceInput">Price</label>
+        <input name="price" type="number" class="form-control" id="priceInput" placeholder="Enter the price" value="@Model.Product?.Price.ToString() ?? """>
+    </div>
+
+    <div class="form-group">
+        <label for="descriptionInput">Description</label>
+        <input name="description" type="text" class="form-control" id="descriptionInput" placeholder="Enter a description" value="@Model.Product?.Description ?? """>
+    </div>
+
+    <br>
+
+    <!-- Buttons -->
+    <a href="/admin/products" class="btn btn-secondary btn-icon-split btn-md">
+        <span class="icon text-white-50">
+            <i class="fas fa-arrow-left"></i>
+        </span>
+        <span class="text">Back</span>
+    </a>
+
+    <button type="submit" class="btn btn-primary btn-icon-split btn-md">
+        <span class="icon text-white-50">
+            <i class="fas fa-edit"></i>
+        </span>
+        <span class="text">Update Product</span>
+    </button>
+</form>

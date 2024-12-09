@@ -28,35 +28,41 @@ namespace DOTNETMVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                using (var db = new Dotnet1BlogDemoContext())
+                // Check if the email already exists
+                var existingUser = _context.Users.FirstOrDefault(u => u.Email == model.Email);
+                if (existingUser != null)
                 {
-                    // Hash the password for security
-                    string hashedPassword = BCrypt.Net.BCrypt.HashPassword(model.Password);
-
-                    // Create and populate the User entity
-                    var user = new User
-                    {
-                        Username = model.Username ?? string.Empty,
-                        Email = model.Email ?? string.Empty,      
-                        Password = hashedPassword,
-                        RememberMe = model.RememberMe,
-                        FullName = model.FullName,
-                        PhoneNumber = model.PhoneNumber,
-                        CreatedAt = DateTime.Now
-                    };
-
-                    // Save user to the database
-                    db.Users.Add(user);
-                    db.SaveChanges();
-
-                    // Redirect to the login page after successful registration
-                    return new RedirectResult(url: "/user/login");
+                    ModelState.AddModelError("Email", "Email is already taken.");
+                    return View("Register", model);
                 }
+
+                // Hash the password for security
+                string hashedPassword = BCrypt.Net.BCrypt.HashPassword(model.Password);
+
+                // Create and populate the User entity
+                var user = new User
+                {
+                    Username = model.Username ?? string.Empty,
+                    Email = model.Email ?? string.Empty,      
+                    Password = hashedPassword,
+                    RememberMe = model.RememberMe,
+                    FullName = model.FullName,
+                    PhoneNumber = model.PhoneNumber,
+                    CreatedAt = DateTime.Now
+                };
+
+                // Save user to the database
+                _context.Users.Add(user);
+                _context.SaveChanges();
+
+                // Redirect to the login page after successful registration
+                return RedirectToAction("Login", "User");
             }
 
             // If model validation fails, return to the registration view
             return View("Register", model);
         }
+
         #endregion
 
         #region Login
@@ -180,6 +186,18 @@ namespace DOTNETMVC.Controllers
             return RedirectToAction("Index", "Home");
         }
         #endregion
+        
+        #region Logout
+        [HttpPost]
+        public IActionResult Logout()
+        {
+            // Clear the user's session (log them out)
+            HttpContext.Session.Clear();
+
+            // Redirect to the login page
+            return RedirectToAction("Login", "User");
+        }
+        #endregion
 
     }
 
@@ -201,7 +219,8 @@ namespace DOTNETMVC.Controllers
         public string? Password { get; set; }
 
         [Required(ErrorMessage = "Full Name is required.")]
-        [StringLength(100, ErrorMessage = "Full name cannot exceed 100 characters.")]
+        [StringLength(100, MinimumLength = 3, ErrorMessage = "Full name must be between 3 and 100 characters.")]
+        [RegularExpression(@"^[a-zA-Z\s]+$", ErrorMessage = "Full name can only contain letters and spaces.")]
         public string? FullName { get; set; }
 
         [Required(ErrorMessage = "Phone number is required.")]
@@ -251,5 +270,4 @@ namespace DOTNETMVC.Controllers
         public string? PhoneNumber { get; set; }
     }
     #endregion
-
 }

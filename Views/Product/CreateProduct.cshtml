@@ -1,0 +1,45 @@
+@model DOTNETMVC.Controllers.FormSaveNewProduct
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!-- Page Heading -->
+<h1 class="h3 mb-2 text-gray-800">Create New Product</h1>
+<p class="mb-4">Add a new product to the database.</p>
+<!-- End Page Heading -->
+
+<!-- Form Example -->
+<form action="/product/savenewproduct" method="post">
+    <!-- Fields -->
+    <div class="form-group">
+        <label for="nameInput">Product Name</label>
+        <input type="text" class="form-control" id="nameInput" name="Name" placeholder="Enter the new product name" value="@Model.Name" required>
+    </div>
+
+    <div class="form-group">
+        <label for="priceInput">Price</label>
+        <input type="number" class="form-control" id="priceInput" name="Price" placeholder="Enter the price" value="@Model.Price" required>
+    </div>
+
+    <div class="form-group">
+        <label for="descriptionInput">Description</label>
+        <textarea class="form-control" id="descriptionInput" name="Description" placeholder="Enter a description" rows="3">@Model.Description</textarea>
+    </div>
+
+    <br>
+
+    <!-- Buttons -->
+    <a href="/product/productlist" class="btn btn-secondary btn-icon-split btn-md">
+        <span class="icon text-white-50">
+            <i class="fas fa-arrow-left"></i>
+        </span>
+        <span class="text">Back</span>
+    </a>
+
+    <button type="submit" class="btn btn-primary btn-icon-split btn-md">
+        <span class="icon text-white-50">
+            <i class="fas fa-plus"></i>
+        </span>
+        <span class="text">Create Product</span>
+    </button>
+</form>

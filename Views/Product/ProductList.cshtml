@@ -1,0 +1,74 @@
+@model DOTNETMVC.Controllers.ProductListViewModel
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!-- Page Header -->
+<h1 class="h3 mb-2 text-gray-800">Products</h1>
+<p class="mb-4">Displays a list of products fetched from the database.</p>
+<!-- End of Page Header -->
+
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">List Products</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Description</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Description</th>
+                        <th>Action</th>
+                    </tr>
+                </tfoot>
+
+                <a href="/product/createproduct" class="btn btn-primary btn-icon-split btn-md">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-plus"></i>
+                    </span>
+                    <span class="text">Add Product</span>
+                </a>
+
+                <tbody>
+                @foreach (var item in Model.Products)
+                {
+                    <tr>
+                        <td>@item.Name</td>
+                        <td>@item.Price</td>
+                        <td>@item.Description</td>
+
+                        <td>
+
+                            <a href="/product/updateProduct?id= @item.ProductId" class="btn btn-info btn-icon-split">
+                                <span class="icon text-white-50">
+                                    <i class="fas fa-edit"></i>
+                                </span>
+                                <span class="text">Edit</span>
+                            </a>
+
+                            <a href="@Url.Action("DeleteProduct", "Product", new { id = item.ProductId })" class="btn btn-danger btn-icon-split">
+                                <span class="icon text-white-50">
+                                    <i class="fas fa-trash"></i>
+                                </span>
+                                <span class="text">Delete</span>
+                            </a>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

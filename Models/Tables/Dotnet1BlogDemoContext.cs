@@ -20,6 +20,8 @@ public partial class Dotnet1BlogDemoContext : DbContext
 
     public virtual DbSet<News> News { get; set; }
 
+    public virtual DbSet<Product> Products { get; set; }
+
     public virtual DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -85,6 +87,24 @@ public partial class Dotnet1BlogDemoContext : DbContext
                 .HasForeignKey(d => d.CategoryId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("category_id_connect_id_categories");
+        });
+
+        modelBuilder.Entity<Product>(entity =>
+        {
+            entity.HasKey(e => e.ProductId).HasName("PRIMARY");
+
+            entity.ToTable("products");
+
+            entity.Property(e => e.ProductId).HasColumnName("product_id");
+            entity.Property(e => e.Description)
+                .HasColumnType("text")
+                .HasColumnName("description");
+            entity.Property(e => e.Name)
+                .HasMaxLength(255)
+                .HasColumnName("name");
+            entity.Property(e => e.Price)
+                .HasPrecision(10, 2)
+                .HasColumnName("price");
         });
 
         modelBuilder.Entity<User>(entity =>
